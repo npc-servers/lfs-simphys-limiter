@@ -6,6 +6,9 @@ Currently, restriction addons like URS and WUMA allow you to only limit per vehi
 Eg. you want people only be able to spawn 2 simphys, with restriction addons this would be impossible as you can only restrict on class basis.
 So you'd end up with every car having a limit of 2 which would allow players to spawn 3x2 different cars.
 
+![image](https://user-images.githubusercontent.com/69946827/183373617-cee711bf-4d12-45d6-8883-d8eec30901f9.png)![image](https://user-images.githubusercontent.com/69946827/183373680-82629acb-89b3-4e87-a18f-554ca1bb2580.png)
+
+
 This addon aims to add a more global like limit for LFS and Simpfhys.
 
 | Convar | Description | Default |
