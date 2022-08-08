@@ -9,9 +9,9 @@ util.AddNetworkString( "simpfhysLFSLimiterNotify" )
 
 -- Convars
 local simfphysLimit = CreateConVar( "vehiclelimiter_simpfhys_max", 3, { FCVAR_ARCHIVE }, "The max amount of simpfhys vehicles players can spawn.", 0 )
-local simfphysAdminBypass = CreateConVar( "vehiclelimiter_simpfhys_adminbypass", 0, { FCVAR_ARCHIVE }, "Should admins and higher ranks bypass the simpfhys limit?", 0 )
+local simfphysAdminBypass = CreateConVar( "vehiclelimiter_simpfhys_adminbypass", 0, { FCVAR_ARCHIVE }, "If admins and higher ranks can bypass the simpfhys limit.", 0 )
 local LFSLimit = CreateConVar( "vehiclelimiter_lfs_max", 2, { FCVAR_ARCHIVE }, "The max amount of LFS vehicles can spawn.", 0 )
-local LFSAdminBypass = CreateConVar( "vehiclelimiter_lfs_adminbypass", 0, { FCVAR_ARCHIVE }, "Should admins and higher ranks bypass the simpfhys limit?", 0 )
+local LFSAdminBypass = CreateConVar( "vehiclelimiter_lfs_adminbypass", 0, { FCVAR_ARCHIVE }, "If admins and higher ranks can bypass the simpfhys limit.", 0 )
 
 local function sendLimitNotification( ply, str )
     net.Start( "simpfhysLFSLimiterNotify" )
