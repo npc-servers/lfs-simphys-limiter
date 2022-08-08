@@ -1,6 +1,3 @@
-local SimfphysLimit = 3
-local LFSLimit = 2
-
 -- Some simphys vehicles dont have .Class
 local extraVehicles = {
     ["DIPRIP - Ratmobile"] = true,
@@ -9,6 +6,16 @@ local extraVehicles = {
 }
 
 util.AddNetworkString( "simphysLFSLimiterNotify" )
+
+local SimfphysLimit = CreateConVar( "vehiclelimiter_simphys_max", 3, { FCVAR_ARCHIVE }, "The max amount of simphys vehicles players can spawn.", 0 ):GetInt()
+cvars.AddChangeCallback( "vehiclelimiter_simphys_max", function( _, _, val )
+    SimfphysLimit = tonumber( val )
+end )
+
+local LFSLimit = CreateConVar( "vehiclelimiter_lfs_max", 2, { FCVAR_ARCHIVE }, "The max amount of LFS vehicles can spawn.", 0 ):GetInt()
+cvars.AddChangeCallback( "vehiclelimiter_lfs_max", function( _, _, val )
+    LFSLimit = tonumber( val )
+end )
 
 local function sendLimitNotification( ply, str )
     net.Start( "simphysLFSLimiterNotify" )
