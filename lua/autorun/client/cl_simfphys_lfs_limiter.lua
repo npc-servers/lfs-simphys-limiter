@@ -1,4 +1,4 @@
-net.Receive( "simphysLFSLimiterNotify", function()
+net.Receive( "simpfhysLFSLimiterNotify", function()
     local message = net.ReadString()
 
     surface.PlaySound( "buttons/button10.wav" )

@@ -1,45 +1,43 @@
--- Some simphys vehicles dont have .Class
+-- Some simpfhys vehicles dont have .Class
 local extraVehicles = {
     ["DIPRIP - Ratmobile"] = true,
     ["DIPRIP - Chaos126p"] = true,
     ["DIPRIP - Hedgehog"] = true
 }
 
-util.AddNetworkString( "simphysLFSLimiterNotify" )
+util.AddNetworkString( "simpfhysLFSLimiterNotify" )
 
-local SimfphysLimit = CreateConVar( "vehiclelimiter_simphys_max", 3, { FCVAR_ARCHIVE }, "The max amount of simphys vehicles players can spawn.", 0 ):GetInt()
-cvars.AddChangeCallback( "vehiclelimiter_simphys_max", function( _, _, val )
-    SimfphysLimit = tonumber( val )
-end )
-
-local LFSLimit = CreateConVar( "vehiclelimiter_lfs_max", 2, { FCVAR_ARCHIVE }, "The max amount of LFS vehicles can spawn.", 0 ):GetInt()
-cvars.AddChangeCallback( "vehiclelimiter_lfs_max", function( _, _, val )
-    LFSLimit = tonumber( val )
-end )
+-- Convars
+local simfphysLimit = CreateConVar( "vehiclelimiter_simpfhys_max", 3, { FCVAR_ARCHIVE }, "The max amount of simpfhys vehicles players can spawn.", 0 )
+local simfphysAdminBypass = CreateConVar( "vehiclelimiter_simpfhys_adminbypass", 0, { FCVAR_ARCHIVE }, "Should admins and higher ranks bypass the simpfhys limit?", 0 )
+local LFSLimit = CreateConVar( "vehiclelimiter_lfs_max", 2, { FCVAR_ARCHIVE }, "The max amount of LFS vehicles can spawn.", 0 )
+local LFSAdminBypass = CreateConVar( "vehiclelimiter_lfs_adminbypass", 0, { FCVAR_ARCHIVE }, "Should admins and higher ranks bypass the simpfhys limit?", 0 )
 
 local function sendLimitNotification( ply, str )
-    net.Start( "simphysLFSLimiterNotify" )
+    net.Start( "simpfhysLFSLimiterNotify" )
     net.WriteString( str )
     net.Send( ply )
 end
 
 -- Simfphys restriction hooks
-hook.Add( "PlayerSpawnVehicle", "limitSimphysVehicles", function( ply, _, _, vehTable )
+hook.Add( "PlayerSpawnVehicle", "limitsimpfhysVehicles", function( ply, _, _, vehTable )
+    if simfphysAdminBypass:GetBool() and ply:IsAdmin() then return end
     if vehTable.Class ~= "gmod_sent_vehicle_fphysics_base" and not extraVehicles[vehTable.Name] then return end
-    if ply:GetCount( "max_simphys_vehicles" ) < SimfphysLimit then return end
+    if ply:GetCount( "max_simpfhys_vehicles" ) < simfphysLimit:GetInt() then return end
     sendLimitNotification( ply, "simfphys" )
     return false
 end )
 
-hook.Add( "PlayerSpawnedVehicle", "limitSimphysVehicles", function( ply, ent )
+hook.Add( "PlayerSpawnedVehicle", "limitsimpfhysVehicles", function( ply, ent )
     if ent:GetClass() ~= "gmod_sent_vehicle_fphysics_base" then return end
-    ply:AddCount( "max_simphys_vehicles", ent )
+    ply:AddCount( "max_simpfhys_vehicles", ent )
 end )
 
 -- LFS restriction hook
 hook.Add( "PlayerSpawnSENT", "limitLFSVehicles", function( ply, ent )
+    if LFSAdminBypass:GetBool() and ply:IsAdmin() then return end
     if not string.StartWith( ent, "lfs_" ) and not string.StartWith( ent, "lunasflightschool_" ) then return end
-    if ply:GetCount( "max_lfs_vehicles" ) < LFSLimit then return end
+    if ply:GetCount( "max_lfs_vehicles" ) < LFSLimit:GetInt() then return end
     sendLimitNotification( ply, "LFS" )
     return false
 end )
