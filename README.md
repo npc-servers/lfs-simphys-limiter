@@ -13,7 +13,7 @@ This addon aims to add a more global like limit for LFS and Simfphys.
 
 | Convar | Description | Default |
 | :---: | :---: | :---: |
-| vehiclelimiter_simpfhys_max | The max amount of simpfhys vehicles players can spawn. | 3 |
-| vehiclelimiter_simpfhys_adminbypass | If admins and higher ranks can bypass the simpfhys limit. | 0 |
-| vehiclelimiter_lfs_max | The max amount of LFS vehicles can spawn. | 2 |
-| vehiclelimiter_lfs_adminbypass | If admins and higher ranks can bypass the simpfhys limit. | 0 |
+| vehiclelimiter_simpfhys_max | The max amount of Simfphys vehicles players can spawn. | 3 |
+| vehiclelimiter_simpfhys_adminbypass | If admins and higher ranks can bypass the Simfphys limit. | 0 |
+| vehiclelimiter_lfs_max | The max amount of LFS vehicles players can spawn. | 2 |
+| vehiclelimiter_lfs_adminbypass | If admins and higher ranks can bypass the LFS limit. | 0 |
