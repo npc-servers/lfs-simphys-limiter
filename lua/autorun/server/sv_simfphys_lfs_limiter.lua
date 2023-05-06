@@ -29,6 +29,7 @@ end
 -- Simfphys restriction hooks
 hook.Add( "PlayerSpawnVehicle", "limitsimpfhysVehicles", function( ply, _, _, vehTable )
     if simfphysAdminBypass:GetBool() and ply:IsAdmin() then return end
+    if not vehTable then return end
     if vehTable.Class ~= "gmod_sent_vehicle_fphysics_base" and not extraVehicles[vehTable.Name] then return end
     if ply:GetCount( "max_simpfhys_vehicles" ) < simfphysLimit:GetInt() then return end
     sendLimitNotification( ply, "Simfphys" )
