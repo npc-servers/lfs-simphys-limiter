@@ -9,7 +9,8 @@ local extraVehicles = {
 local extraLFSVehicles = {
     ["lfs_"] = true,
     ["lunasflightschool_"] = true,
-    ["merydianlfs_"] = true
+    ["merydianlfs_"] = true,
+    ["helibornelfs_"] = true
 }
 
 util.AddNetworkString( "simpfhysLFSLimiterNotify" )
