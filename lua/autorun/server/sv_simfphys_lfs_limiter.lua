@@ -5,14 +5,6 @@ local extraVehicles = {
     ["DIPRIP - Hedgehog"] = true
 }
 
--- Some LFS vehicles dont start with lfs_ or lunasflightschool_
-local extraLFSVehicles = {
-    ["lfs_"] = true,
-    ["lunasflightschool_"] = true,
-    ["merydianlfs_"] = true,
-    ["helibornelfs_"] = true
-}
-
 util.AddNetworkString( "simpfhysLFSLimiterNotify" )
 
 -- Convars
@@ -43,18 +35,11 @@ hook.Add( "PlayerSpawnedVehicle", "limitsimpfhysVehicles", function( ply, ent )
 end )
 
 -- LFS restriction hook
-hook.Add( "PlayerSpawnSENT", "limitLFSVehicles", function( ply, ent )
+local lfsClasses = {}
+hook.Add( "PlayerSpawnSENT", "limitLFSVehicles", function( ply, class )
     if LFSAdminBypass:GetBool() and ply:IsAdmin() then return end
 
-    local isLFS = false
-    for prefix in pairs( extraLFSVehicles ) do
-        if string.StartWith( ent, prefix ) then
-            isLFS = true
-            break
-        end
-    end
-
-    if not isLFS then return end
+    if not lfsClasses[class] then return end
 
     if ply:GetCount( "max_lfs_vehicles" ) < LFSLimit:GetInt() then return end
     sendLimitNotification( ply, "LFS" )
@@ -63,5 +48,6 @@ end )
 
 hook.Add( "PlayerSpawnedSENT", "limitLFSVehicles", function( ply, ent )
     if not ent.LFS then return end
+    lfsClasses[ent:GetClass()] = true
     ply:AddCount( "max_lfs_vehicles", ent )
 end )
